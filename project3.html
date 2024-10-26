@@ -176,16 +176,16 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">param_grid_rbf = {</span>
-<span class="sd">        &#39;C&#39;: [0.1, 1, 10, 100],</span>
-<span class="sd">        &#39;gamma&#39;: [.001, .01, .1, 1, 10]</span>
-<span class="sd">}</span>
+<span class="n">param_grid_rbf</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">.001</span><span class="p">,</span> <span class="mf">.01</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="p">}</span>
 
-<span class="sd">grid_search = GridSearchCV(svm.SVC(kernel=&#39;rbf&#39;), param_grid, cv=5, scoring=&#39;accuracy&#39;)</span>
-<span class="sd">grid_search.fit(x_train_std, y_train)</span>
-<span class="sd">print(&quot;Best parameters: &quot;, grid_search.best_params_)</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">),</span> <span class="n">param_grid_rbf</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train_std</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters: &quot;</span><span class="p">,</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+
+
 <span class="c1">#RBF SVM</span>
 <span class="n">nonlinear_svm</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">)</span>
 <span class="n">nonlinear_svm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train_model</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>

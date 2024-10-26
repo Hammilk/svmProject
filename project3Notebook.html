@@ -7949,7 +7949,7 @@ weighted avg       0.81      0.81      0.80      5958
 <span class="sd">        'gamma': [.001, .01, .1, 1, 10]</span>
 <span class="sd">}</span>
 
-<span class="sd">grid_search = GridSearchCV(svm.SVC(kernel='rbf'), param_grid, cv=5, scoring='accuracy')</span>
+<span class="sd">grid_search = GridSearchCV(svm.SVC(kernel='rbf'), param_grid_rbf, cv=5, scoring='accuracy')</span>
 <span class="sd">grid_search.fit(x_train_std, y_train)</span>
 <span class="sd">print("Best parameters: ", grid_search.best_params_)</span>
 <span class="sd">"""</span>
