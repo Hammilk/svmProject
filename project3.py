@@ -88,15 +88,14 @@ param_grid_rbf = {
 grid_search = GridSearchCV(svm.SVC(kernel='rbf'), param_grid, cv=5, scoring='accuracy')
 grid_search.fit(x_train_std, y_train)
 print("Best parameters: ", grid_search.best_params_)
-
+"""
 #RBF SVM
 nonlinear_svm = svm.SVC(kernel='rbf', C=100, class_weight='balanced')
 nonlinear_svm.fit(x_train_model, y_train)
 
-y_pred_rbf = linear_svm.predict(x_test_model)
+y_pred_rbf = nonlinear_svm.predict(x_test_model)
 
 print(classification_report(y_test, y_pred_rbf))
-"""
 
 
 
