@@ -50,10 +50,15 @@ x_test_std = scalar.fit_transform(x_test)
 
 #Create correlation matrix
 df_corr = pd.DataFrame(x_train_std, columns = x_columns)
-drop_correlated = DropCorrelatedFeatures(threshold=0.5)
+df_test = pd.DataFrame(x_test_std, columns = x_columns)
+drop_correlated = DropCorrelatedFeatures(threshold=0.7)
 
-final_df = drop_correlated.fit_transform(df_corr)
-final_df['gas_label'] = y_train
+drop_correlated.fit(df_corr)
+final_df = drop_correlated.transform(df_corr)
+final_test = drop_correlated.transform(df_test)
+
+x_train_model = np.array(final_df)
+x_test_model = np.array(final_test)
 
 param_grid = {
         'C': [0.01, 0.1, 1, 10, 100],
@@ -65,34 +70,33 @@ param_grid = {
 grid_search = GridSearchCV(svm.SVC(kernel='linear'), param_grid, cv=5)
 grid_search.fit(x_train_std, y_train)
 print("Best parameters:", grid_search.best_params_)
-"""
 
+"""
 #Linear SVM
 linear_svm = svm.SVC(C=100, class_weight='balanced', kernel='linear', decision_function_shape='ovr')
-linear_svm.fit(x_train_std, y_train)
-y_pred = linear_svm.predict(x_test_std)
+linear_svm.fit(x_train_model, y_train)
+y_pred = linear_svm.predict(x_test_model)
 
 print(classification_report(y_test, y_pred))
 
+"""
 param_grid_rbf = {
         'C': [0.1, 1, 10, 100],
         'gamma': [.001, .01, .1, 1, 10]
 }
 
-"""
 grid_search = GridSearchCV(svm.SVC(kernel='rbf'), param_grid, cv=5, scoring='accuracy')
 grid_search.fit(x_train_std, y_train)
 print("Best parameters: ", grid_search.best_params_)
 
-"""
 #RBF SVM
 nonlinear_svm = svm.SVC(kernel='rbf', C=100, class_weight='balanced')
-nonlinear_svm.fit(x_train_std, y_train)
+nonlinear_svm.fit(x_train_model, y_train)
 
-y_pred_rbf = linear_svm.predict(x_test_std)
+y_pred_rbf = linear_svm.predict(x_test_model)
 
 print(classification_report(y_test, y_pred_rbf))
-
+"""
 
 
 
